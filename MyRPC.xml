@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE root 
+[
+<!ELEMENT root ANY>
+<!ELEMENT AppList (App+)>
+<!ATTLIST App Id CDATA "">
+<!ATTLIST App Ip CDATA "">
+<!ATTLIST App Port CDATA "">
+<!ELEMENT ServiceList (Service+)>
+<!ELEMENT Service EMPTY>
+<!ATTLIST Service name CDATA "">
+<!ATTLIST Service version CDATA "">
+<!ATTLIST Service title CDATA "">
+<!ATTLIST Service AppId CDATA "">
+<!ELEMENT LoadBalanceList (LoadBalance+)>
+<!ELEMENT LoadBalance EMPTY>
+<!ATTLIST LoadBalance id CDATA "">
+<!ATTLIST LoadBalance class CDATA "">
+]>
+<root>
+		<AppList>
+			<App Id="Server1"  Weight="1" loadBalance="ConsistentHashLoadBalance"/>
+			<App Id="Server2"  weight="1" loadBalance="RandomLoadBalance"/>
+		</AppList>
+		<ProviderList>
+			<Provider Ip="localhost" Port="8083" Appid="Server1"></Provider>
+			<Provider Ip="localhost" Port="8084" Appid="Server2"></Provider>
+		</ProviderList>
+		<ServiceList>
+			<Service name="testMethod1" version="1" title="测试1" AppId="Server1"/>
+			<Service name="testMethod2" version="1" title="测试1" AppId="Server2"/>
+		</ServiceList>
+		
+		<LoadBalanceList>
+			<LoadBalance id="Random" class="zhm.rpc.loadbalance.RandomLoadBalance"/>
+			<LoadBalance id="RoundRobin" class="zhm.rpc.loadbalance.RoundRobinLoadBalance"/>
+			<LoadBalance id="LeastActive" class="zhm.rpc.loadbalance.LeastActiveLoadBalance"/>
+			<LoadBalance id="ConsistentHash" class="zhm.rpc.loadbalance.ConsistentHashLoadBalance"/>
+		</LoadBalanceList>
+</root>  
