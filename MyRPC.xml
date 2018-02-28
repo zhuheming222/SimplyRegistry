@@ -2,39 +2,46 @@
 <!DOCTYPE root 
 [
 <!ELEMENT root ANY>
-<!ELEMENT AppList (App+)>
-<!ATTLIST App Id CDATA "">
-<!ATTLIST App Ip CDATA "">
-<!ATTLIST App Port CDATA "">
-<!ELEMENT ServiceList (Service+)>
-<!ELEMENT Service EMPTY>
-<!ATTLIST Service name CDATA "">
-<!ATTLIST Service version CDATA "">
-<!ATTLIST Service title CDATA "">
-<!ATTLIST Service AppId CDATA "">
-<!ELEMENT LoadBalanceList (LoadBalance+)>
-<!ELEMENT LoadBalance EMPTY>
-<!ATTLIST LoadBalance id CDATA "">
-<!ATTLIST LoadBalance class CDATA "">
+<!ELEMENT AppList (app+)>
+<!ELEMENT app EMPTY>
+<!ATTLIST app Id CDATA "">
+<!ATTLIST app weight CDATA "">
+<!ATTLIST app loadBalance CDATA "">
+<!ELEMENT ServiceList (service+)>
+<!ELEMENT service EMPTY>
+<!ATTLIST service name CDATA "">
+<!ATTLIST service version CDATA "">
+<!ATTLIST service title CDATA "">
+<!ATTLIST service AppId CDATA "">
+<!ELEMENT ProviderList (provider+)>
+<!ELEMENT provider EMPTY>
+<!ATTLIST provider Ip CDATA "">
+<!ATTLIST provider Port CDATA "">
+<!ATTLIST provider Appid CDATA "">
+<!ELEMENT LoadBalanceList (loadBalance+)>
+<!ELEMENT loadBalance EMPTY>
+<!ATTLIST loadBalance id CDATA "">
+<!ATTLIST loadBalance class CDATA "">
 ]>
 <root>
 		<AppList>
-			<App Id="Server1"  Weight="1" loadBalance="ConsistentHashLoadBalance"/>
-			<App Id="Server2"  weight="1" loadBalance="RandomLoadBalance"/>
+			<app Id="Server1"  weight="1" loadBalance="ConsistentHash"/>
+			<app Id="Server2"  weight="1" loadBalance="Random"/>
 		</AppList>
 		<ProviderList>
-			<Provider Ip="localhost" Port="8083" Appid="Server1"></Provider>
-			<Provider Ip="localhost" Port="8084" Appid="Server2"></Provider>
+			<provider Ip="localhost" Port="8083" Appid="Server1"/>
+			<provider Ip="localhost" Port="8084" Appid="Server2"/>
 		</ProviderList>
 		<ServiceList>
-			<Service name="testMethod1" version="1" title="测试1" AppId="Server1"/>
-			<Service name="testMethod2" version="1" title="测试1" AppId="Server2"/>
+			<service name="testMethod1" version="1" title="测试1" AppId="Server1"/>
+			<service name="testMethod" version="1" title="测试11" AppId="Server1"/>
+			<service name="testMethod2" version="1" title="测试1" AppId="Server2"/>
 		</ServiceList>
 		
 		<LoadBalanceList>
-			<LoadBalance id="Random" class="zhm.rpc.loadbalance.RandomLoadBalance"/>
-			<LoadBalance id="RoundRobin" class="zhm.rpc.loadbalance.RoundRobinLoadBalance"/>
-			<LoadBalance id="LeastActive" class="zhm.rpc.loadbalance.LeastActiveLoadBalance"/>
-			<LoadBalance id="ConsistentHash" class="zhm.rpc.loadbalance.ConsistentHashLoadBalance"/>
+			<loadBalance id="Random" class="zhm.rpc.loadbalance.RandomLoadBalance"/>
+			<loadBalance id="RoundRobin" class="zhm.rpc.loadbalance.RoundRobinLoadBalance"/>
+			<loadBalance id="LeastActive" class="zhm.rpc.loadbalance.LeastActiveLoadBalance"/>
+			<loadBalance id="ConsistentHash" class="zhm.rpc.loadbalance.ConsistentHashLoadBalance"/>
 		</LoadBalanceList>
 </root>  
